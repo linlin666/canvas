@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>国庆假期刮刮乐</title>
+    <style>
+        body, html{
+            position: relative;
+        }
+        div{
+            width: 300px;
+            height: 100px;
+            position: relative;
+            background: red;
+            line-height: 100px;
+            text-align: center;
+        }
+        #canvas{
+            border: 1px solid #dddddd;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="textBox"></div>
+<canvas id="canvas" width="300" height="100">
+</canvas>
+<script>
+window.onload = function (ev) {
+    var canvas  = document.getElementById('canvas');
+    var textBox = document.getElementById('textBox');
+    textBox.innerText = '国庆加班' + parseInt(Math.random()*7)  + '天';
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'gray';
+    ctx.rect(0,0,canvas.width,canvas.height); // 使用ract创建矩形，参数依次为：据左上角x,y轴距离，宽、高
+    ctx.fill();
+    var isClear = false;
+    //鼠标事件
+    canvas.onmousedown = function () {
+        doDowm();
+    }
+    canvas.touchstart = function () {
+        doDowm();
+    }
+    canvas.onmouseup = function () {
+        doUp();
+    }
+    canvas.touchend = function () {
+        doUp();
+    }
+    // 清空操作
+    canvas.onmousemove = function (e) {
+        doMove(e);
+
+    }
+    canvas.touchmove = function (e) {
+        doMove(e);
+    }
+    function doDowm() {
+        isClear = true;
+    }
+    function doUp() {
+        isClear = false;
+    }
+    function doMove(e) {
+        if (isClear === false){
+            return;
+        }
+        e = e || window.event;
+        var curX = e.clientX - canvas.offsetLeft;
+        var curY = e.clientY - canvas.offsetTop;
+        var step = 20;
+        ctx.clearRect(curX-step/2, curY-step/2, step,step);
+        e.stopPropagation();
+    }
+
+
+}
+</script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
