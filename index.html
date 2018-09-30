@@ -37,6 +37,8 @@ window.onload = function (ev) {
     ctx.fillStyle = 'gray';
     ctx.rect(0,0,canvas.width,canvas.height); // 使用ract创建矩形，参数依次为：据左上角x,y轴距离，宽、高
     ctx.fill();
+
+    ctx.globalCompositeOperation = 'destination-out';
     var isClear = false;
     //鼠标事件
     canvas.onmousedown = function () {
@@ -48,14 +50,12 @@ window.onload = function (ev) {
 
     canvas.addEventListener('touchstart',doDowm,true)
     canvas.addEventListener('touchend',doUp,true)
+    canvas.addEventListener('touchmove',doMove,true)
 
     // 清空操作
     canvas.onmousemove = function (e) {
         doMove(e);
 
-    }
-    canvas.touchmove = function (e) {
-        doMove(e);
     }
     function doDowm() {
         isClear = true;
@@ -68,10 +68,22 @@ window.onload = function (ev) {
             return;
         }
         e = e || window.event;
-        var curX = e.clientX - canvas.offsetLeft;
-        var curY = e.clientY - canvas.offsetTop;
-        var step = 20;
-        ctx.clearRect(curX-step/2, curY-step/2, step,step);
+        console.log(e)
+        var curX;
+        var curY;
+        // 移动端
+        if(e.touches){
+            curX = e.touches[0].pageX - canvas.offsetLeft;
+            curY = e.touches[0].pageY - canvas.offsetTop;
+        } else {
+            curX = e.clientX - canvas.offsetLeft;
+            curY = e.clientY - canvas.offsetTop;
+        }
+        var step = 10;
+        ctx.beginPath();
+        ctx.arc(curX,curY, step, 0, Math.PI*2, false);
+        ctx.fill();
+        // ctx.clearRect(curX-step/2, curY-step/2, step,step);
         e.stopPropagation();
     }
 
