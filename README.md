@@ -1,4 +1,8 @@
-# canvas
+
+
+## 使用canvas实现刮刮乐效果的小案例
+### 思路
+在底层放个div,显示文本内容，canvas图层。
 
 ## about git
 1、创建新的厂仓
