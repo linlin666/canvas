@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>国庆假期刮刮乐</title>
+    <title>国庆惊喜送送送</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <style>
         body, html{
             position: relative;
@@ -41,15 +42,13 @@ window.onload = function (ev) {
     canvas.onmousedown = function () {
         doDowm();
     }
-    canvas.touchstart = function () {
-        doDowm();
-    }
     canvas.onmouseup = function () {
         doUp();
     }
-    canvas.touchend = function () {
-        doUp();
-    }
+
+    canvas.addEventListener('touchstart',doDowm,true)
+    canvas.addEventListener('touchend',doUp,true)
+
     // 清空操作
     canvas.onmousemove = function (e) {
         doMove(e);
